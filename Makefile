@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -pedantic -Iinclude
-SRC = src/main.c src/mime.c src/files.c
+SRC = src/main.c src/mime.c src/files.c src/http.c
 TARGET = minihttpd
 
 all: $(TARGET)
