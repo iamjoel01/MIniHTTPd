@@ -33,7 +33,7 @@ char *get_secure_path(const char *uri) {
         return NULL;
     }
 
-    // Si el archivo existe en el sistema pero está fuera de www
+    
     if (strncmp(resolved_path, base_path, strlen(base_path)) != 0) {
         free(resolved_path);
         free(base_path);

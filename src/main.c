@@ -20,7 +20,7 @@ int main() {
         errexit("Fallo al inicializar el socket del servidor\n");
     }
 
-    //Arrancar el motor de concurrencia epoll
+    //Inicializacion de concurrencia epoll
     int epoll_fd = epoll_create1(0);
     if (epoll_fd == -1) errexit("Error al crear epoll\n");
 
@@ -57,7 +57,7 @@ int main() {
 
                 int bytes_read = recv(client_fd, buffer, BUFFER_SIZE - 1, 0);
                 if (bytes_read <= 0) {
-                    close(client_fd); // El navegador se desconectó voluntariamente
+                    close(client_fd);
                     continue;
                 }
 

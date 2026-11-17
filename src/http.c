@@ -6,14 +6,14 @@ int parse_http_request(const char *request, char *method, char *uri, char *versi
     *keep_alive = 0; 
 
     if (strstr(request, "\r\n\r\n") == NULL) {
-        return 400; // Bad Request por exceso de tamaño de encabezados
+        return 400;
     }
 
     int parsed = sscanf(request, "%15s %255s %15s", method, uri, version);
     if (parsed != 3) return 400;
     
     if (strlen(uri) >= 255) {
-        return 400; // Bad Request por URI demasiado larga
+        return 400;
     }
 
 
@@ -26,10 +26,9 @@ int parse_http_request(const char *request, char *method, char *uri, char *versi
 
     char user_agent[256] = "Desconocido";
     const char *ua_ptr = strstr(request, "User-Agent: ");
-    // Leemos hasta el salto de línea para capturar todo el User-Agent
     if (ua_ptr) sscanf(ua_ptr, "User-Agent: %255[^\r\n]", user_agent);
 
-    // Detectar si el cliente solicita conexión persistente
+    //Conexión persistente
     if (strstr(request, "Connection: keep-alive") || strstr(request, "Connection: Keep-Alive")) {
         *keep_alive = 1;
     }
@@ -56,5 +55,5 @@ void build_http_response(char *buffer, size_t max_size, int status_code, const c
              "Connection: %s\r\n"
              "\r\n",
              status_code, status_text, content_type, content_length,
-             keep_alive ? "keep-alive" : "close"); // Aplicar la persistencia al encabezado de salida
+             keep_alive ? "keep-alive" : "close");
 }
